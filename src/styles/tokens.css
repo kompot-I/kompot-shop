@@ -1,0 +1,23 @@
+/* Дизайн-токены. Меняете тему — меняете только этот файл. */
+:root {
+  --ink: #0b0d12;
+  --surface: #151920;
+  --surface-hover: #1b212b;
+  --line: #262b35;
+  --paper: #eef0f3;
+  --muted: #8f97a3;
+
+  --signal-blue: #4f8cff;
+  --signal-blue-soft: rgba(79, 140, 255, 0.14);
+  --signal-orange: #ff7a33;
+  --signal-orange-soft: rgba(255, 122, 51, 0.14);
+
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --shadow-card: 0 12px 28px rgba(0, 0, 0, 0.35);
+
+  --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-body: "Inter", "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+}
