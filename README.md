@@ -188,14 +188,20 @@ Spring Boot с эндпоинтом `GET /api/products`, отдающим тот
 
 Чтобы запустить:
 
-1. Выложите собранный сайт (`npm run build`, папка `dist/`) на любой хостинг
-   с **HTTPS** (GitHub Pages, Cloudflare Pages и т. п.). Telegram не открывает
-   Mini App по `http://`.
-2. Создайте бота в `@BotFather` (`/newbot`).
-3. Привяжите приложение: `/newapp` (отдельное Mini App со своей ссылкой) или
-   `/setmenuurl` (кнопка меню у бота). В обоих случаях укажите HTTPS-адрес
-   сайта.
-4. Выкладка в подпапку (GitHub Pages: `https://<логин>.github.io/<репозиторий>/`)
+1. Выложите сайт на GitHub Pages: `.github/workflows/deploy.yml` прогоняет
+   тесты, собирает проект и публикует его при каждом push в `main`. Один раз
+   включите в репозитории Settings → Pages → Source: **GitHub Actions**
+   (на бесплатном тарифе репозиторий должен быть публичным). Адрес:
+   `https://<логин>.github.io/<репозиторий>/`. Подойдёт и любой другой
+   хостинг с **HTTPS**.
+2. Бот создаётся в `@BotFather` (`/newbot`).
+3. Кнопка меню у бота: в `@BotFather` команда `/setmenubutton` (или
+   Bot Settings → Menu Button), выбрать бота, указать HTTPS-адрес сайта и
+   текст кнопки.
+4. Для публичной ссылки на приложение настройте Main Mini App
+   (Bot Settings → Configure Mini App): ссылка будет вида
+   `https://t.me/<бот>?startapp`.
+5. Выкладка в подпапку (GitHub Pages: `https://<логин>.github.io/<репозиторий>/`)
    уже поддерживается и отдельной настройки не требует: пути к скриптам,
    `products.json` и фото относительные (`base: "./"` в `vite.config.js`).
    Условие: фото в `products.json` указаны без `/` в начале, это проверяет
