@@ -3,7 +3,12 @@
 // GET /api/products, отдающим тот же формат ({ "products": [...] }),
 // меняем ровно эту константу — остальной код (composables, компоненты)
 // не трогаем.
-const DATA_URL = "/products.json";
+//
+// Путь НАМЕРЕННО без ведущего «/»: адрес считается от страницы, поэтому
+// сайт работает и в корне домена, и в подпапке (GitHub Pages:
+// https://<логин>.github.io/<репозиторий>/). Вместе с `base: "./"`
+// в vite.config.js.
+const DATA_URL = "products.json";
 
 export async function fetchProducts() {
   const res = await fetch(DATA_URL);

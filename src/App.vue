@@ -1,15 +1,29 @@
 <script setup>
+import { ref } from "vue";
 import { useProducts } from "./composables/useProducts";
 import { useProductFilters } from "./composables/useProductFilters";
+import { provideCart } from "./composables/useCart";
 import TheHeader from "./components/TheHeader.vue";
 import ProductGrid from "./components/ProductGrid.vue";
+import CartDrawer from "./components/CartDrawer.vue";
 
 const { products, isLoading, error } = useProducts();
 const { search, condition, sort, filtered } = useProductFilters(products);
+
+// Корзина создаётся один раз здесь и раздаётся вниз через provide/inject:
+// карточки товаров и панель корзины работают с одним и тем же состоянием.
+const { count: cartCount } = provideCart(products);
+const cartOpen = ref(false);
 </script>
 
 <template>
-  <TheHeader v-model:search="search" v-model:sort="sort" v-model:condition="condition" />
+  <TheHeader
+    v-model:search="search"
+    v-model:sort="sort"
+    v-model:condition="condition"
+    :cart-count="cartCount"
+    @open-cart="cartOpen = true"
+  />
 
   <main class="page-inner">
     <div class="results-row">
@@ -21,6 +35,8 @@ const { search, condition, sort, filtered } = useProductFilters(products);
   </main>
 
   <footer class="site-footer">BRICKBOX · витрина коллекционных минифигурок</footer>
+
+  <CartDrawer :open="cartOpen" @close="cartOpen = false" />
 </template>
 
 <style scoped>

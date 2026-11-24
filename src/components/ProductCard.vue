@@ -3,10 +3,14 @@ import { ref, computed } from "vue";
 import BrickIcon from "./icons/BrickIcon.vue";
 import { getConditionLabel, getConditionTone } from "../constants/conditions";
 import { formatPrice } from "../utils/format";
+import { injectCart } from "../composables/useCart";
 
 const props = defineProps({
   product: { type: Object, required: true },
 });
+
+// Корзину создаёт App.vue (provideCart), карточка просто берёт её через inject.
+const { qtyOf, canAdd, add, setQty } = injectCart();
 
 // Если картинка не загрузилась (битая ссылка), переключаемся на плейсхолдер.
 const imageFailed = ref(false);
@@ -16,11 +20,8 @@ const conditionLabel = computed(() => getConditionLabel(props.product.condition)
 const conditionTone = computed(() => getConditionTone(props.product.condition));
 const price = computed(() => formatPrice(props.product.price, props.product.currency));
 const showImage = computed(() => Boolean(props.product.image) && !imageFailed.value);
-
-function handleBuyClick() {
-  if (!inStock.value || !props.product.buyLink) return;
-  window.open(props.product.buyLink, "_blank", "noopener");
-}
+const cartQty = computed(() => qtyOf(props.product.id));
+const canAddMore = computed(() => canAdd(props.product));
 </script>
 
 <template>
@@ -51,9 +52,32 @@ function handleBuyClick() {
         <span class="price">{{ price }}</span>
       </div>
 
-      <button class="buy-btn" :disabled="!inStock" @click="handleBuyClick">
-        {{ inStock ? "Купить" : "Нет в наличии" }}
+      <button v-if="!inStock" class="buy-btn" type="button" disabled>Нет в наличии</button>
+
+      <button v-else-if="cartQty === 0" class="buy-btn" type="button" @click="add(product)">
+        В корзину
       </button>
+
+      <div v-else class="stepper" role="group" :aria-label="`В корзине: ${product.name}`">
+        <button
+          type="button"
+          class="stepper-btn"
+          aria-label="Убрать одну"
+          @click="setQty(product, cartQty - 1)"
+        >
+          −
+        </button>
+        <span class="stepper-count"><span class="stepper-label">В корзине:</span> {{ cartQty }}</span>
+        <button
+          type="button"
+          class="stepper-btn"
+          aria-label="Добавить ещё"
+          :disabled="!canAddMore"
+          @click="add(product)"
+        >
+          +
+        </button>
+      </div>
     </div>
   </article>
 </template>
@@ -203,10 +227,16 @@ function handleBuyClick() {
   color: var(--paper);
 }
 
+/* Кнопка и степпер одной высоты, чтобы карточка не «прыгала» при добавлении. */
+.buy-btn,
+.stepper {
+  height: 38px;
+}
+
 .buy-btn {
   margin-top: 4px;
   width: 100%;
-  padding: 10px;
+  padding: 0 10px;
   border-radius: var(--radius-sm);
   border: none;
   background: var(--signal-blue);
@@ -236,9 +266,58 @@ function handleBuyClick() {
   box-shadow: none;
 }
 
+.stepper {
+  margin-top: 4px;
+  display: flex;
+  border: 1px solid var(--signal-blue);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--signal-blue-soft);
+}
+
+.stepper-btn {
+  width: 44px;
+  flex: none;
+  border: none;
+  background: transparent;
+  color: var(--paper);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.stepper-btn:hover:not(:disabled) {
+  background: rgba(79, 140, 255, 0.28);
+}
+
+.stepper-btn:disabled {
+  color: var(--muted);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.stepper-count {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  /* высота степпера 38px минус рамка 2px — текст по центру без flex,
+     чтобы пробел между подписью и числом не схлопывался */
+  line-height: 36px;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
 @media (max-width: 640px) {
   .card-title {
     font-size: 14px;
+  }
+
+  /* В узкой карточке на подпись «В корзине:» не хватает места —
+     остаётся число между «−» и «+», рамка и цвет и так показывают состояние. */
+  .stepper-label {
+    display: none;
   }
 }
 </style>

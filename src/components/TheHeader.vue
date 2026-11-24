@@ -1,6 +1,12 @@
 <script setup>
 import FilterChips from "./FilterChips.vue";
 import SearchIcon from "./icons/SearchIcon.vue";
+import CartIcon from "./icons/CartIcon.vue";
+
+defineProps({
+  cartCount: { type: Number, default: 0 },
+});
+const emit = defineEmits(["open-cart"]);
 
 const search = defineModel("search", { default: "" });
 const sort = defineModel("sort", { default: "default" });
@@ -25,6 +31,16 @@ const condition = defineModel("condition", { default: "all" });
         <option value="price_asc">Сначала дешевле</option>
         <option value="price_desc">Сначала дороже</option>
       </select>
+
+      <button
+        type="button"
+        class="cart-btn"
+        :aria-label="cartCount > 0 ? `Корзина, товаров: ${cartCount}` : 'Корзина'"
+        @click="emit('open-cart')"
+      >
+        <CartIcon class="cart-icon" />
+        <span v-if="cartCount > 0" class="cart-badge">{{ cartCount }}</span>
+      </button>
     </div>
 
     <FilterChips v-model="condition" />
@@ -143,9 +159,66 @@ const condition = defineModel("condition", { default: "all" });
   border-color: var(--signal-blue);
 }
 
+.cart-btn {
+  position: relative;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  color: var(--paper);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.cart-btn:hover {
+  border-color: var(--muted);
+}
+
+.cart-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--signal-orange);
+  color: #1a0d03;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+}
+
 @media (max-width: 640px) {
   .header-inner {
     padding: 12px 16px;
+  }
+
+  /* На телефоне корзина встаёт в первую строку рядом с логотипом,
+     а поиск и сортировка уходят ниже. */
+  .brand {
+    order: 0;
+  }
+  .cart-btn {
+    order: 1;
+    margin-left: auto;
+  }
+  .search-wrap {
+    order: 2;
+  }
+  .sort-select {
+    order: 3;
   }
 }
 </style>
