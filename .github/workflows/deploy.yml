@@ -2,6 +2,10 @@
 # Основа — официальный шаблон из документации Vite (vite.dev/guide/static-deploy),
 # версии действий закреплены по хэшам коммитов.
 #
+# Сборка и публикация разнесены на два job'а. В одном job'е deploy-pages иногда
+# запрашивает список артефактов через полсекунды после загрузки и не находит его
+# ("No artifacts named github-pages were found"); граница между job'ами даёт паузу.
+#
 # Один раз вручную: Settings → Pages → Build and deployment → Source: «GitHub Actions».
 name: Deploy to GitHub Pages
 
@@ -22,10 +26,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -56,6 +57,15 @@ jobs:
         with:
           path: ./dist
 
+  deploy:
+    # Запускается только после успешной сборки. Если упадёт именно он, на вкладке
+    # запуска жмите «Re-run failed jobs»: пересоберётся только публикация.
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5
