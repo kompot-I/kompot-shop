@@ -34,7 +34,7 @@ const cartOpen = ref(false);
     <ProductGrid :items="filtered" :is-loading="isLoading" :error="error" />
   </main>
 
-  <footer class="site-footer">BRICKBOX · витрина коллекционных минифигурок</footer>
+  <footer class="site-footer">KOMPOT LEGO · витрина коллекционных наборов</footer>
 
   <CartDrawer :open="cartOpen" @close="cartOpen = false" />
 </template>

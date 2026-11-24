@@ -18,7 +18,7 @@ const condition = defineModel("condition", { default: "all" });
     <div class="header-inner">
       <div class="brand">
         <span class="brand-mark" aria-hidden="true"></span>
-        BRICKBOX
+        KOMPOT LEGO
       </div>
 
       <div class="search-wrap">

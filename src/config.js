@@ -4,4 +4,4 @@
 // Куда уходят заказы. Без «@».
 export const MANAGER_USERNAME = "kompot_lego";
 
-export const SHOP_NAME = "BRICKBOX";
+export const SHOP_NAME = "KOMPOT LEGO";

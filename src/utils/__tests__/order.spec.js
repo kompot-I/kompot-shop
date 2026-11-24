@@ -13,9 +13,9 @@ describe("buildOrderMessage", () => {
   const items = [item("sw-001", "Джедай-рыцарь", 1200, 2), item("cty-001", "Полицейский", 450, 1)];
 
   it("перечисляет позиции с id, количеством и суммой по строке", () => {
-    const text = buildOrderMessage(items, { shopName: "BRICKBOX" });
+    const text = buildOrderMessage(items, { shopName: "KOMPOT LEGO" });
 
-    expect(text).toContain("Здравствуйте! Хочу заказать в BRICKBOX:");
+    expect(text).toContain("Здравствуйте! Хочу заказать в KOMPOT LEGO:");
     expect(text).toContain("1. Джедай-рыцарь (sw-001) — 2 × 1 200 ₽ = 2 400 ₽");
     expect(text).toContain("2. Полицейский (cty-001) — 1 × 450 ₽ = 450 ₽");
   });

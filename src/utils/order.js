@@ -15,7 +15,7 @@ function money(value, currency) {
  * @param items элементы корзины: [{ product, quantity, lineTotal }]
  * @param shopName название магазина для приветствия
  */
-export function buildOrderMessage(items, { shopName = "BRICKBOX" } = {}) {
+export function buildOrderMessage(items, { shopName = "KOMPOT LEGO" } = {}) {
   if (items.length === 0) return "";
 
   const currency = items[0].product.currency;
