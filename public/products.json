@@ -1,100 +1,37 @@
 {
   "products": [
     {
-      "id": "sw-001",
-      "name": "Джедай-рыцарь",
+      "id": "sw-75456",
+      "name": "Advent Calendar 2027",
       "category": "Star Wars",
-      "description": "Оригинальная минифигурка, полный комплект аксессуаров: световой меч и плащ.",
-      "price": 1200,
-      "currency": "RUB",
-      "quantity": 1,
-      "condition": "used",
-      "image": "",
-      "buyLink": "https://t.me/your_username"
-    },
-    {
-      "id": "sw-002",
-      "name": "Штурмовик Первого Ордена",
-      "category": "Star Wars",
-      "description": "Состояние отличное, без следов игры. Бластер в комплекте.",
-      "price": 900,
+      "description": "Адвент Календарь Звездные Войны",
+      "price": 3999,
       "currency": "RUB",
       "quantity": 3,
-      "condition": "like_new",
-      "image": "",
-      "buyLink": "https://t.me/your_username"
-    },
-    {
-      "id": "hp-001",
-      "name": "Волшебник с совой",
-      "category": "Harry Potter",
-      "description": "Редкий вариант окраски мантии, волшебная палочка и сова прилагаются.",
-      "price": 1500,
-      "currency": "RUB",
-      "quantity": 1,
       "condition": "new",
-      "image": "",
-      "buyLink": "https://t.me/your_username"
+      "image": "images/sw-75456.png"
     },
     {
-      "id": "cty-001",
-      "name": "Полицейский патрульный",
-      "category": "City",
-      "description": "Небольшие потёртости на шлеме, в остальном как новый.",
-      "price": 450,
+      "id": "sh-76340",
+      "name": "Advent Calendar 2027",
+      "category": "Super Heroes",
+      "description": "Адвент Календарь Супер Герои",
+      "price": 3999,
       "currency": "RUB",
-      "quantity": 5,
-      "condition": "used",
-      "image": "",
-      "buyLink": "https://t.me/your_username"
-    },
-    {
-      "id": "njo-001",
-      "name": "Ниндзя огненной стихии",
-      "category": "Ninjago",
-      "description": "Полный сет: два клинка, капюшон, подставка в комплекте.",
-      "price": 1100,
-      "currency": "RUB",
-      "quantity": 0,
-      "condition": "used",
-      "image": "",
-      "buyLink": "https://t.me/your_username"
-    },
-    {
-      "id": "mrv-001",
-      "name": "Супергерой в маске",
-      "category": "Marvel",
-      "description": "Собран из оригинальных деталей, аксессуары и оружие в комплекте.",
-      "price": 1300,
-      "currency": "RUB",
-      "quantity": 2,
-      "condition": "like_new",
-      "image": "",
-      "buyLink": "https://t.me/your_username"
-    },
-    {
-      "id": "cty-002",
-      "name": "Космонавт исследователь",
-      "category": "City",
-      "description": "Скафандр и шлем без повреждений, минифигурка в идеальном состоянии.",
-      "price": 800,
-      "currency": "RUB",
-      "quantity": 1,
+      "quantity": 3,
       "condition": "new",
-      "image": "",
-      "buyLink": "https://t.me/your_username"
+      "image": "images/sh-76340.png"
     },
     {
-      "id": "sw-003",
-      "name": "Пилот повстанцев",
-      "category": "Star Wars",
-      "description": "Классический шлем пилота, лёгкие потёртости краски на визоре.",
-      "price": 700,
+      "id": "ct-60510",
+      "name": "Advent Calendar 2027",
+      "category": "City",
+      "description": "Адвент Календарь City",
+      "price": 3099,
       "currency": "RUB",
-      "quantity": 4,
-      "condition": "used",
-      "image": "",
-      "buyLink": "https://t.me/your_username"
+      "quantity": 3,
+      "condition": "new",
+      "image": "images/ct-60510.png"
     }
   ]
 }
